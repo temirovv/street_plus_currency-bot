@@ -6,8 +6,10 @@ from utils.db.sqlite import Database
 
 
 TOKEN = ''
-ADMIN = ''
+ADMIN = 1
+CHANNEL = ''
+CHANNELS = []
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 dp = Dispatcher()
-db = Database()
+db = Database() 

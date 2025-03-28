@@ -1,5 +1,5 @@
 from aiogram import F, types
-from data.app import dp, db, bot, ADMIN
+from data.app import dp, db, bot, ADMIN, CHANNEL
 from states.admin_state import Advertising
 from aiogram.fsm.context import FSMContext
 from aiogram.exceptions import TelegramForbiddenError
@@ -23,4 +23,5 @@ async def advert_handler(message: types.Message, state: FSMContext):
         except TelegramForbiddenError as exception:
             print('user bloklangan')
     print(f"{reklama_count} ta reklama jo'natildi")
+    await message.send_copy(chat_id=CHANNEL)
     await state.clear()
