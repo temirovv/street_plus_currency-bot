@@ -42,6 +42,7 @@ class Database:
         """
         self.execute(sql, commit=True)
 
+
     def create_category_table(self):
         sql = """CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,6 +50,12 @@ class Database:
         );"""
         self.execute(sql, commit=True)
 
+    def create_products_table(self):
+        sql = """CREATE TABLE IF NOT EXISTS product (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nomi VARCHAR(255),
+            category INTEGER
+        )"""
 
     def add_default_categories(self):
         categories = ['Pitsa', 'Hot-dog', 'Burger', 'Sneklar']
@@ -71,19 +78,22 @@ class Database:
 
     def add_user(self, telegram_id: int):
         sql = """
-        INSERT OR IGNORE INTO Users(telegram_id) VALUES(?, ?, ?)
+        INSERT OR IGNORE INTO Users(telegram_id) VALUES(?)
         """
-        self.execute(sql, parameters=(telegram_id), commit=True)
+        self.execute(sql, parameters=(telegram_id,), commit=True)
 
+    def get_all_users(self):
+        sql = '''SELECT telegram_id FROM Users WHERE is_active=1'''
+        return self.execute(sql, fetchall=True)
 
 # db = Database()
 # db.create_category_table()
 # db.add_default_categories()
 
-# def logger(statement):
-#     print(f"""
-# _____________________________________________________        
-# Executing: 
-# {statement}
-# _____________________________________________________
-# """)
+def logger(statement):
+    print(f"""
+_____________________________________________________        
+Executing: 
+{statement}
+_____________________________________________________
+""")

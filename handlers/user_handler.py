@@ -1,6 +1,6 @@
 from aiogram import  types
 from aiogram.filters import CommandStart
-from data.app import dp
+from data.app import dp, db
 from data.api import filter_contries, make_text, get_calculated_text
 from keyboards.inline.menu import make_inline_menu
 from keyboards.inline.make_categories import make_categories
@@ -12,6 +12,8 @@ from aiogram.fsm.context import FSMContext
 async def send_welcome(message: types.Message):
     data = filter_contries()
     text = make_text(data)
+    user_id = message.from_user.id
+    db.add_user(user_id)
 
     await message.reply(text, reply_markup=make_inline_menu())
 

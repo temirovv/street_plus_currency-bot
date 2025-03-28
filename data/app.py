@@ -6,7 +6,7 @@ from utils.db.sqlite import Database
 
 
 TOKEN = ''
-
+ADMIN = ''
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 dp = Dispatcher()
